@@ -10,7 +10,7 @@ function Dashboard() {
         <h1>Dashboard</h1>
         <NavComponents />
         <LineChart />
-            <Reports />
+            {/* <Reports /> */}
       </div>
   )
 }

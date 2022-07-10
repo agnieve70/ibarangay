@@ -40,14 +40,15 @@ async function getHelpCategory() {
 }
 
 async function saveReport(help_id, representative_id,
-    content, category) {
+    content, category, title) {
     const response = await fetch(`https://ibarangay-backend.herokuapp.com/api/report/create`, {
         method: 'POST',
         body: JSON.stringify({
             help_id: help_id,
             representative_id: representative_id,
             content: content,
-            category: category
+            category: category,
+            title: title
         }),
         headers: {
             "Content-Type": "application/json",
@@ -70,6 +71,7 @@ function ResqueDetail() {
     const [representative_id, setRepresentativeId] = useState();
     const [content, setContent] = useState();
     const [category, setCategory] = useState();
+    const [title, setTitle] = useState("");
 
     let { id } = useParams();
 
@@ -95,7 +97,7 @@ function ResqueDetail() {
     function saveHandler(e) {
         e.preventDefault();
         saveReport(id, representative_id,
-            content, category).then((data) => {
+            content, category, title).then((data) => {
                 console.log("SAVED REPORT ", data);
                 alert("Saved");
                 window.location.href="/realtime-requests";
@@ -128,6 +130,10 @@ function ResqueDetail() {
                             </button>
                         </>}
                     </span>
+                    <div className="form-gro">
+                        <label htmlFor="title">Title</label>
+                        <input type="text" name="" id="title" value={title} onChange={(e)=> setTitle(e.target.value)} className="form-control" />
+                    </div>
                     <div className="form-group">
                         <label htmlFor="category">Category</label>
                         <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className='form-control'>
@@ -145,7 +151,8 @@ function ResqueDetail() {
                     </div>
                 </form>}
             </div>
-            {!isDone && <MapContent />}
+            {data.latitude && data.longitude ? 
+            <MapContent latitude={data.latitude} longitude={data.longitude} /> : null}
         </>
     )
 }
