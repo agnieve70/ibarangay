@@ -23,19 +23,19 @@ async function getHelps() {
 }
 
 function RealtimeRequests() {
-  const [count, setCount] = useState();
+  const [count, setCount] = useState(0);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     getHelps().then((result) => {
       setData(result);
     });
-
-
-    setTimeout(function () {
-      setCount(count + 1);
-    }, 5000);
   }, [count]);
+
+  
+  setTimeout(function () {
+    setCount(count + 1);
+  }, 5000);
 
   return (
     <div>
@@ -44,15 +44,17 @@ function RealtimeRequests() {
       <div className="mt-3">
         {
           data.length > 0 && data.map(d =>
-            <LinkContainer key={data.id} style={{ textDecoration: 'none' }} to={`/resque-detail/${d.id}`}>
-              <a style={{ textDecoration: 'none' }} href="">
+            <div className='mb-3'>
+              <LinkContainer className='mb-3' key={data.id} style={{ textDecoration: 'none', marginBottom: 10}} to={`/resque-detail/${d.id}`}>
+              <a className='mb-3' style={{ textDecoration: 'none', marginBottom: 10}} href="">
                 <div key={d.id} className={`card p-3 ${d.status === 'General' ? 'bg-success' : 'bg-danger'}`}>
                   <h1 className='text-white'>{d.name}</h1>
                   <span className='text-white'>{d.email}</span>
                   <span className='text-white'>{d.latitude} - {d.longitude}</span>
                 </div>
               </a>
-            </LinkContainer>)
+            </LinkContainer>
+              </div>)
 
         }
       </div>

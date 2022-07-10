@@ -94,10 +94,11 @@ function ResqueDetail() {
 
     function saveHandler(e) {
         e.preventDefault();
-        alert("Saved");
-        saveReport(data.id, representative_id,
+        saveReport(id, representative_id,
             content, category).then((data) => {
                 console.log("SAVED REPORT ", data);
+                alert("Saved");
+                window.location.href="/realtime-requests";
             })
     }
 
@@ -130,17 +131,17 @@ function ResqueDetail() {
                     <div className="form-group">
                         <label htmlFor="category">Category</label>
                         <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className='form-control'>
-                            <option disabled>Select Category</option>
+                            <option disabled selected>Select Category</option>
                             {categories && categories.map(cat => <option value={cat.id}>{cat.title}</option>)}
                         </select>
                     </div>
                     <div className="form-g">
                         <label htmlFor="representative">Representative</label>
-                    <input id="representative" className='form-control' value={representative_id} onChange={(e) => setRepresentativeId(e.target.value)} />
+                        <input id="representative" className='form-control' value={representative_id} onChange={(e) => setRepresentativeId(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="content">Content</label>
-                    <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} className='form-control' rows={5}></textarea>
+                        <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} className='form-control' rows={5}></textarea>
                     </div>
                 </form>}
             </div>
