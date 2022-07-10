@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import ReportCard from '../UI/report-card'
+import NavComponents from './nav-components'
 
 function Reports() {
     return (
         <>
             <h1>Recent Reports</h1>
+            <NavComponents />
             <ReportCard />
             <ReportCard />
             <ReportCard />

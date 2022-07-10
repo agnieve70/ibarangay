@@ -1,49 +1,151 @@
-import React, { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import MapContent from './map';
 import MapDisplay from './map-display';
+import NavComponents from './nav-components';
+
+const auth_token = localStorage.getItem("auth_token");
+
+async function getHelp(id) {
+    const response = await fetch(`https://ibarangay-backend.herokuapp.com/api/help/${id}`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth_token}`
+        },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+    }
+
+    return data.data;
+}
+
+async function getHelpCategory() {
+    const response = await fetch(`https://ibarangay-backend.herokuapp.com/api/help/category`, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth_token}`
+        },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+    }
+
+    return data.data;
+}
+
+async function saveReport(help_id, representative_id,
+    content, category) {
+    const response = await fetch(`https://ibarangay-backend.herokuapp.com/api/report/create`, {
+        method: 'POST',
+        body: JSON.stringify({
+            help_id: help_id,
+            representative_id: representative_id,
+            content: content,
+            category: category
+        }),
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${auth_token}`
+        },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+    }
+
+    return data.data;
+}
 
 function ResqueDetail() {
     const [isDone, setIsDone] = useState(false);
+    const [data, setData] = useState({});
+    const [categories, setCategories] = useState([]);
+    const [representative_id, setRepresentativeId] = useState();
+    const [content, setContent] = useState();
+    const [category, setCategory] = useState();
 
     let { id } = useParams();
 
-    function reportHandler(){
+    useEffect(() => {
+        getHelp(id).then((res) => {
+            console.log("RES ", res);
+            setData(res);
+        });
+
+        getHelpCategory().then((res) => {
+            setCategories(res);
+        })
+    }, []);
+
+    function reportHandler() {
         setIsDone(true);
     }
 
-    function hideReportHandler(){
+    function hideReportHandler() {
         setIsDone(false);
     }
 
-    function saveHandler(){
+    function saveHandler(e) {
+        e.preventDefault();
         alert("Saved");
+        saveReport(data.id, representative_id,
+            content, category).then((data) => {
+                console.log("SAVED REPORT ", data);
+            })
     }
 
     return (
-        <div className="container mt-5">
-            <div className="card p-3 shadow">
-                <h1>AG Nieve</h1>
-                <span>Digos City, Davao del Sur</span>
-                <span>12:34:27</span>
-                <span className='mb-2'>
-                    {!isDone && <button onClick={reportHandler} className='btn btn-primary'>Make Report
-                    </button>}
+        <>
+            <div className="container">
+                <h1>Help Details</h1>
+                <NavComponents />
 
-                    {isDone && <>
-                        <button onClick={hideReportHandler} className='btn btn-secondary me-1'>Cancel
-                    </button>
-                    <button onClick={saveHandler} className='btn btn-primary'>Save
-                    </button>
-                    </>}
+                <h1 className='mt-2'>{data.name}</h1>
+                <span>Latitude: {data.latitude}</span> <br />
+                <span>Longitude: {data.longitude}</span> <br />
+                <span>Help Category: <span className={`badge ${data.status === 'General' ? 'bg-success' : 'bg-danger'}`}>
+                    {data.status}
                 </span>
-                {isDone && <form>
-                    <textarea className='form-control' rows={5}></textarea>
-                    </form>}
+                </span> <br />
+                {!isDone && <button onClick={reportHandler} className='btn btn-primary mb-2'>Make Report
+                </button>}
+                {isDone && <form className='mt-3'>
+                    <span className='mb-2'>
+
+
+                        {isDone && <>
+                            <button type="button" onClick={hideReportHandler} className='btn btn-secondary me-1'>Cancel
+                            </button>
+                            <button type="submit" onClick={saveHandler} className='btn btn-primary'>Save
+                            </button>
+                        </>}
+                    </span>
+                    <div className="form-group">
+                        <label htmlFor="category">Category</label>
+                        <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className='form-control'>
+                            <option disabled>Select Category</option>
+                            {categories && categories.map(cat => <option value={cat.id}>{cat.title}</option>)}
+                        </select>
+                    </div>
+                    <div className="form-g">
+                        <label htmlFor="representative">Representative</label>
+                    <input id="representative" className='form-control' value={representative_id} onChange={(e) => setRepresentativeId(e.target.value)} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="content">Content</label>
+                    <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} className='form-control' rows={5}></textarea>
+                    </div>
+                </form>}
             </div>
             {!isDone && <MapContent />}
-
-        </div>
+        </>
     )
 }
 
