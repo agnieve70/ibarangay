@@ -38,7 +38,8 @@ function RealtimeRequests() {
   }, 5000);
 
   return (
-    <div>
+    <div className="container mt-5">
+    <div className="card p-5 shadow">
       <h1>Realtime Requests</h1>
       <NavComponents />
       <div className="mt-3">
@@ -58,6 +59,7 @@ function RealtimeRequests() {
 
         }
       </div>
+    </div>
     </div>
   )
 }

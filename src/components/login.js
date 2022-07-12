@@ -43,12 +43,13 @@ function Login() {
             localStorage.setItem("auth_token", result.token);
             setIsLoading(false);
 
-            if(isMobile=== true){
-                localStorage.setItem("role", "collector");
-                window.location.href = '/qrscan';
+            if(result.user.role === 'citizen' && isMobile === true){
+                localStorage.setItem("role", result.user.role);
+                window.location.href = '/citizen-help';
             }else{
                 window.location.href = '/dashboard';
             }
+            
         } catch (error) {
             setError(error);
             setIsLoading(false);
@@ -57,15 +58,7 @@ function Login() {
     
     return (
         <div className="container-fluid">
-            <div
-                style={{
-                    backgroundImage:
-                        'url("https://dumaguete.com/barangays-dumaguete-city/',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                }}
-                className="row justify-content-center vh-100"
-            >
+            <div className="row justify-content-center vh-100">
                 <div className="col-md-4 mt-5">
                     <center>
                         <img src="/ibrgy_splash.png" className="img-fluid" width="50%" />

@@ -6,11 +6,13 @@ import Reports from './reports';
 
 function Dashboard() {
   return (
-    <div>
+    <div className="container mt-5">
+      <div className="card p-5 shadow">
         <h1>Dashboard</h1>
         <NavComponents />
         <LineChart />
             {/* <Reports /> */}
+      </div>
       </div>
   )
 }

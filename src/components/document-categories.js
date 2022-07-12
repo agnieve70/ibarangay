@@ -66,7 +66,8 @@ function DocumentCategories() {
     setCategory("");
   }
   return (
-    <div>
+    <div className="container mt-5">
+    <div className="card p-5 shadow">
       <h1>Document Categories</h1>
       <NavComponents />
       <div className="mt-3">
@@ -101,6 +102,7 @@ function DocumentCategories() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }

@@ -37,6 +37,8 @@ function ReportDetail(props) {
     
     return (
         <div className="container mt-5">
+      <div className="card p-5 shadow">
+        <div className="container mt-5">
             <h1>Realtime Requests</h1>
             <Pdf targetRef={ref} filename="code-example.pdf">
         {({ toPdf }) => <button onClick={toPdf} className='btn btn-secondary btn-sm mb-3'>Donwload PDF <i className="fa fa-pdf"></i></button>}
@@ -50,9 +52,11 @@ function ReportDetail(props) {
                 <span>Status: <b>{data.status}</b></span>
                 <span>Category: <b>{data.category}</b></span>
                 <p>{data.report_content}</p>
-                {data.latitude && data.longitude ? <MapContent latitude={data.latitude} longitude={data.longitude} /> : null}
+                {data.latitude && data.longitude ? <MapContent latitude={data.longitude} longitude={data.latitude} /> : null}
             </div>
 
+        </div>
+        </div>
         </div>
     )
 }

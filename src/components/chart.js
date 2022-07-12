@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,6 +24,24 @@ ChartJS.register(
   Legend
 );
 
+const auth_token = localStorage.getItem("auth_token");
+
+async function getReports() {
+  const response = await fetch("https://ibarangay-backend.herokuapp.com/api/reports", {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${auth_token}`
+    },
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || "Something went wrong");
+  }
+
+  return data.data;
+}
+
 const options = {
   responsive: true,
   plugins: {
@@ -32,7 +50,7 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Buy and Sell of Rice 2022',
+      text: 'Reports Graph of Barangay Aplaya',
     },
   },
 };
@@ -41,12 +59,20 @@ function LineChart(props) {
   console.log("DATA ", props.data);
   const labels = ['January', 'March', 'April', 'May'];
 
+  const [graphs, setGraphs] = useState([]);
+  
+  useEffect(()=> {
+    getReports().then((data)=> {
+      setGraphs(data);
+    });
+  }, []);
+
   const data = {
     labels,
     datasets: [
       {
         label: 'Serious Cases',
-        data:[40, 10, 30, 20],
+        data:graphs.map((data, index) => index + 1),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
@@ -58,6 +84,8 @@ function LineChart(props) {
       },
     ],
   };
+
+
   return (
     <div className="row mb-5">
       <div className="col-md-12">

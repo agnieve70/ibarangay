@@ -105,7 +105,8 @@ function ResqueDetail() {
     }
 
     return (
-        <>
+        <div className="container mt-5">
+    <div className="card p-5 shadow">
             <div className="container">
                 <h1>Help Details</h1>
                 <NavComponents />
@@ -152,8 +153,9 @@ function ResqueDetail() {
                 </form>}
             </div>
             {data.latitude && data.longitude ? 
-            <MapContent latitude={data.latitude} longitude={data.longitude} /> : null}
-        </>
+            <MapContent latitude={data.longitude} longitude={data.latitude} /> : null}
+        </div>
+        </div>
     )
 }
 

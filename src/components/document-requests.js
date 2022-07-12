@@ -62,7 +62,8 @@ function DocumentRequests() {
   }
 
   return (
-    <div>
+    <div className="container mt-5">
+    <div className="card p-5 shadow">
       <h1>Document Requests</h1>
       <NavComponents />
       <div className="mt-3">
@@ -86,6 +87,7 @@ function DocumentRequests() {
             
           </div>)}
       </div>
+    </div>
     </div>
   )
 }

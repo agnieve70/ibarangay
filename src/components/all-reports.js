@@ -32,7 +32,8 @@ function AllReports() {
     }, [count]);
 
     return (    
-        <div>
+      <div className="container mt-5">
+      <div className="card p-5 shadow">
             <h1>Dashboard</h1>
             <NavComponents />
             {reports.length > 0 && reports.map(rep => 
@@ -40,6 +41,7 @@ function AllReports() {
                 <ReportCard data ={rep} />
             </div>)}
             
+        </div>
         </div>
     )
 }
