@@ -10,11 +10,11 @@ let isMobile = false;
 //     window.location.href = "/";
 // }
 
-async function addUser(username, email, profile_picture, password, password_confirmation, role) {
+async function addUser(username, email, password, password_confirmation, role) {
     let bodyFormData = new FormData();
     bodyFormData.append("name", username);
     bodyFormData.append("email", email);
-    bodyFormData.append("profile_picture", profile_picture);
+    // bodyFormData.append("profile_picture", profile_picture);
     bodyFormData.append("password", password);
     bodyFormData.append("password_confirmation", password_confirmation);
     bodyFormData.append("role", role);
@@ -48,7 +48,7 @@ function Register() {
 
         setIsLoading(true);
         try {
-            const result1 = await addUser(username, email, profile_picture, password, 
+            const result1 = await addUser(username, email, password, 
                 password_confirmation,
                  "citizen")
             if (result1) {
@@ -65,12 +65,12 @@ function Register() {
     return (
         <div className="container-fluid">
             <div
-                style={{
-                    backgroundImage:
-                        'url("https://wallpapercave.com/wp/wp2024254.jpg")',
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                }}
+                // style={{
+                //     backgroundImage:
+                //         'url("https://wallpapercave.com/wp/wp2024254.jpg")',
+                //     backgroundRepeat: "no-repeat",
+                //     backgroundSize: "cover",
+                // }}
                 className="row justify-content-center vh-100"
             >
                 <div className="col-md-4">
@@ -112,14 +112,14 @@ function Register() {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                            <Input
+                            {/* <Input
                                 label_id={"profile_picture"}
                                 label={"Profile Picture"}
                                 type={"file"}
                                 onChange={(e) => {
                                     setProfilePicture(e.target.files[0])
                                 }}
-                            />
+                            /> */}
                             <Input
                                 label_id={"email"}
                                 label={"Email"}
