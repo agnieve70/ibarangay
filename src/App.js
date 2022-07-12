@@ -9,7 +9,7 @@ import DocumentRequests from "./components/document-requests";
 import Login from "./components/login";
 import NeedResque from "./components/need-resque";
 import RealtimeRequests from "./components/realtime-requests";
-import Register from "./components/Register";
+import Register from "./components/register";
 import ReportCategories from "./components/report-categories";
 import ReportDetail from "./components/report-detail";
 import ResqueDetail from "./components/resque-detail";
