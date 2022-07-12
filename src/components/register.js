@@ -52,6 +52,8 @@ function Register() {
                 password_confirmation,
                  "citizen")
             if (result1) {
+                alert("Registered Success");
+                window.location.href="/";
                 console.log("SUCCESS!!");
             }
             setIsLoading(false);
