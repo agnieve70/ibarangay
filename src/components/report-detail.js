@@ -52,7 +52,7 @@ function ReportDetail(props) {
                 <span>Status: <b>{data.status}</b></span>
                 <span>Category: <b>{data.category}</b></span>
                 <p>{data.report_content}</p>
-                {data.latitude && data.longitude ? <MapContent latitude={data.longitude} longitude={data.latitude} /> : null}
+                {data.latitude && data.longitude ? <MapContent latitude={data.latitude} longitude={data.longitude} /> : null}
             </div>
 
         </div>
