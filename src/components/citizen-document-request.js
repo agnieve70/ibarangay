@@ -94,7 +94,7 @@ function CitizenDocumentRequest() {
     }
   return (
     <div className="container mt-5">
-      <div className="card p-5 shadow">
+      <div className="card p-3 shadow">
         <h1>Document Requests</h1>
         <CitizenNavComponents />
         <div className="mt-3">

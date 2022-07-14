@@ -12,14 +12,19 @@ function CitizenNavComponents() {
 
   return (
     <div>
+      <LinkContainer to='/citizen-announcement'>
+            <a href='' className="btn btn-primary btn-sm me-2 shadow mb-2">
+              Announcement
+            </a>
+          </LinkContainer>
         <LinkContainer to='/citizen-help'>
-            <a href='' className="btn btn-primary btn-sm me-2 shadow">
+            <a href='' className="btn btn-primary btn-sm me-2 shadow mb-2">
               Help
             </a>
           </LinkContainer>
           
           <LinkContainer to='/citizen-document-request'>
-            <a href='' className="btn btn-primary me-2 shadow btn-sm">
+            <a href='' className="btn btn-primary me-2 shadow btn-sm mb-2">
               Documents
             </a>
           </LinkContainer>

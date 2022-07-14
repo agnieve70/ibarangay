@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AllReports from "./components/all-reports";
+import Announcement from "./components/announcement";
 import CitizenDashboard from "./components/citizen-dashboard";
 import CitizenDocumentRequest from "./components/citizen-document-request";
 import CitizenHelp from "./components/citizen-help";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/citizen-dashboard" element={<CitizenDashboard />} />
             <Route path="/citizen-help" element={<CitizenHelp />} />
+            <Route path="/citizen-announcement" element={<Announcement />} />
             <Route path="/citizen-document-request" element={<CitizenDocumentRequest />} />
             <Route path="/realtime-requests" element={<RealtimeRequests />} />
             <Route path="/document-categories" element={<DocumentCategories />} />
