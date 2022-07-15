@@ -42,10 +42,11 @@ function Announcement() {
        }
        
     return (
+        <>
+                <CitizenNavComponents />
         <div className="container mt-5">
             <div className="card p-3 shadow">
                 <h1>Request Help</h1>
-                <CitizenNavComponents />
                 <div className="mt-3">
                     <p>All Latest Announcement Will be posted here.</p>
                     
@@ -62,6 +63,7 @@ function Announcement() {
                 </div>
             </div>
         </div>
+        </>
 
     )
 }

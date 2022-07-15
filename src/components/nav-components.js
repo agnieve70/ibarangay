@@ -35,7 +35,7 @@ function NavComponents() {
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin Settings
               </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul style={{fontSize: 14}} class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="/announcement">Announcements</a></li>
                 <li><a class="dropdown-item" href="/document-categories">Document Category</a></li>
                 <li><a class="dropdown-item" href="/report-categories">Reports Category</a></li>

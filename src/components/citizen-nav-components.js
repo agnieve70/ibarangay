@@ -32,7 +32,7 @@ function CitizenNavComponents() {
             </li>
           </ul>
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
+          <li style={{fontSize: 14}} class="nav-item">
               <a  onClick={logoutHandler} class="nav-link" href="#">Logout</a>
             </li>
           </ul>
