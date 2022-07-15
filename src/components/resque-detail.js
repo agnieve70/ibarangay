@@ -119,14 +119,14 @@ function ResqueDetail() {
                     <div className="container">
                         <h1>Incident Report</h1>
 
-                        <h1 className='mt-2'>{data.name}</h1>
+                        <h1 className='mt-2'>{data.firstname} {data.lastname}</h1>
                         {/* <span>Latitude: {data.latitude}</span> <br />
                 <span>Longitude: {data.longitude}</span> <br /> */}
                         <span>Help Category: <span className={`badge ${data.status === 'General' ? 'bg-success' : 'bg-danger'}`}>
                             {data.status}
                         </span>
                         </span> <br />
-                        {!isDone && <button onClick={reportHandler} className='btn btn-primary mb-2'>Generate Report
+                        {!isDone && <button onClick={reportHandler} className='btn btn-success mb-2'>Generate Report
                         </button>}
                         {isDone && <form className='mt-3'>
                             <span className='mb-2'>
@@ -153,12 +153,12 @@ function ResqueDetail() {
                                 <label htmlFor="content">Content</label>
                                 <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} className='form-control' rows={5}></textarea>
                             </div>
-                            {data.latitude && data.longitude ?
-                                <MapContent latitude={data.latitude} longitude={data.longitude} /> : null}
+                            {data && 
+                                <MapContent latitude={parseFloat(data.latitude)} longitude={parseFloat(data.longitude)} /> }
                             {isDone && <div className='mt-3'>
                                 <button type="button" onClick={hideReportHandler} className='btn btn-secondary me-1'>Cancel
                                 </button>
-                                <button disabled={!title || !category || !representative_id || !content ? true: false} type="submit" onClick={saveHandler} className='btn btn-primary'>Save
+                                <button disabled={!title || !category || !representative_id || !content ? true: false} type="submit" onClick={saveHandler} className='btn btn-success'>Save
                                 </button>
                             </div>}
                         </form>}

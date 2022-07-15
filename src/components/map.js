@@ -46,7 +46,7 @@ function MapContent(props) {
         },
         geometry: {
           type: "Point",
-          coordinates: [props.latitude, props.longitude],
+          coordinates: [props.longitude, props.latitude],
         },
       },
     ],
@@ -57,7 +57,7 @@ function MapContent(props) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [props.latitude, props.longitude],
+      center: [props.longitude, props.latitude],
       zoom: 14,
     });
 
