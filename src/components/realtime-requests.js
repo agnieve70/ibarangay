@@ -55,8 +55,8 @@ function RealtimeRequests() {
               <a className='mb-3' style={{ textDecoration: 'none', marginBottom: 10}} href="">
                 <div key={d.id} className={`card p-3 ${d.status === 'General' ? 'bg-success' : 'bg-danger'}`}>
                   <h1 className='text-white'>{d.firstname} {d.lastname}</h1>
-                  <h1 className='text-white'>{d.name}</h1>
-                  <span className='text-white'>{d.email}</span>
+                  <h1 className='text-white'>{d.purok}</h1>
+                  {/* <span className='text-white'>{d.email}</span> */}
                 </div>
               </a>
             </LinkContainer>

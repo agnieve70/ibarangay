@@ -52,6 +52,23 @@ async function getPurok() {
     return data.data;
 }
 
+async function getEula() {
+
+    const response = await fetch("https://ibarangay-backend.herokuapp.com/api/eula", {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+    }
+    console.log(data);
+
+    return data.data;
+}
+
 
 
 function Register() {
@@ -68,8 +85,15 @@ function Register() {
     const [error, setError] = useState(false);
     const [purok, setPurok] = useState([]);
     const [purokInput, setPurokInput] = useState("");
+    const [eula, setEula] = useState("");
+    const [checkEula, setCheckEula] = useState(false);
 
     useEffect(()=> {
+        getEula().then((result) => {
+            console.log("RESULT: ",result[0].content);
+            setEula(result[0].content);
+        })
+
         getPurok().then((data)=> {
             setPurok(data);
         });
@@ -98,14 +122,24 @@ function Register() {
     }
 
     return (
+        
         <div className="container-fluid">
-            <div
-                // style={{
-                //     backgroundImage:
-                //         'url("https://wallpapercave.com/wp/wp2024254.jpg")',
-                //     backgroundRepeat: "no-repeat",
-                //     backgroundSize: "cover",
-                // }}
+           {!checkEula ? 
+            <div className="col-md-4">
+            <div className="card p-5 shadow mt-5">
+                <h4 className="text-center mb-4">
+                    Terms And Agreement
+                </h4>
+                <p>{eula}</p>
+
+                <center>
+                    <button onClick={()=> {
+                        setCheckEula(true);
+                    }} className="btn btn-success">Proceed</button>
+                </center>
+            </div>
+            </div>
+           :  <div
                 className="row justify-content-center vh-100"
             >
                 <div className="col-md-4">
@@ -216,9 +250,9 @@ function Register() {
                         </form>
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
-    )
+    );
 }
 
 export default Register
