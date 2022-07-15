@@ -34,8 +34,16 @@ function ReportDetail(props) {
             setData(res);
         });
     },[postId]);
-    
+
+    if(!auth_token){
+        return(
+         <h1>Please login first.</h1>
+        )
+       }
+       
     return (
+        <>
+        <NavComponents />
         <div className="container mt-5">
       <div className="card p-5 shadow">
         <div className="container mt-5">
@@ -44,7 +52,6 @@ function ReportDetail(props) {
         {({ toPdf }) => <button onClick={toPdf} className='btn btn-secondary btn-sm mb-3'>Donwload PDF <i className="fa fa-pdf"></i></button>}
       </Pdf>
             
-            <NavComponents />
             <div className="card shadow p-5 mt-3" ref={ref}>
                 <h1 className="secondary">{data.report_title}</h1>
                 <h2 className="text-muted">{data.helped_user}</h2>
@@ -52,12 +59,13 @@ function ReportDetail(props) {
                 <span>Status: <b>{data.status}</b></span>
                 <span>Category: <b>{data.category}</b></span>
                 <p>{data.report_content}</p>
-                {data.latitude && data.longitude ? <MapContent latitude={data.latitude} longitude={data.longitude} /> : null}
+                <a target={'_ablank'} href={`https://www.google.com/maps/@${data.latitude},${data.longitude},21z`} rel="noreferrer">View Location</a>
             </div>
 
         </div>
         </div>
         </div>
+        </>
     )
 }
 

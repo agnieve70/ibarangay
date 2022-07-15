@@ -92,11 +92,18 @@ function CitizenDocumentRequest() {
             })
        
     }
+
+    if(!auth_token){
+      return(
+       <h1>Please login first.</h1>
+      )
+     }
   return (
+    <>
+        <CitizenNavComponents />
     <div className="container mt-5">
       <div className="card p-3 shadow">
         <h1>Document Requests</h1>
-        <CitizenNavComponents />
         <div className="mt-3">
             <form action="" onSubmit={submitHandler}>
                 <div className="form-group">
@@ -110,7 +117,7 @@ function CitizenDocumentRequest() {
                         {categories.length > 0 && categories.map((cat) => <option value={cat.id}>{cat.category}</option>)}
                     </select>
                 </div>
-                <button type='submit' className="btn btn-primary mt-2">
+                <button disabled={!title || !category ? true : false} type='submit' className="btn btn-primary mt-2">
                     Save
                 </button>
             </form>
@@ -125,6 +132,7 @@ function CitizenDocumentRequest() {
         </div>
     </div>
     </div>
+    </>
   )
 }
 

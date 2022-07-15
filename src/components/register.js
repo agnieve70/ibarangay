@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LinkContainer } from "react-router-bootstrap";
 import Input from "../UI/input";
 
@@ -10,14 +10,17 @@ let isMobile = false;
 //     window.location.href = "/";
 // }
 
-async function addUser(username, email, password, password_confirmation, role) {
+async function addUser(username, firstname, lastname, email, password, password_confirmation, role, purok) {
     let bodyFormData = new FormData();
+    bodyFormData.append("firstname", firstname);
+    bodyFormData.append("lastname", lastname);
     bodyFormData.append("name", username);
     bodyFormData.append("email", email);
     // bodyFormData.append("profile_picture", profile_picture);
     bodyFormData.append("password", password);
     bodyFormData.append("password_confirmation", password_confirmation);
     bodyFormData.append("role", role);
+    bodyFormData.append("purok", purok);
 
     const res = await fetch('https://ibarangay-backend.herokuapp.com/api/register', {
         method: 'POST',
@@ -32,8 +35,29 @@ async function addUser(username, email, password, password_confirmation, role) {
     return data;
 }
 
+async function getPurok() {
+
+    const response = await fetch("https://ibarangay-backend.herokuapp.com/api/puroks", {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+        throw new Error(data.message || "Something went wrong");
+    }
+    console.log(data);
+
+    return data.data;
+}
+
+
+
 function Register() {
 
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -42,15 +66,24 @@ function Register() {
     const [role, setRole] = useState("admin");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [purok, setPurok] = useState([]);
+    const [purokInput, setPurokInput] = useState("");
+
+    useEffect(()=> {
+        getPurok().then((data)=> {
+            setPurok(data);
+        });
+    },[]);
 
     async function submitHandler(event) {
         event.preventDefault();
 
         setIsLoading(true);
+
         try {
-            const result1 = await addUser(username, email, password, 
+            const result1 = await addUser(username, firstname, lastname, email, password, 
                 password_confirmation,
-                 "citizen")
+                 "citizen", purokInput)
             if (result1) {
                 alert("Registered Success");
                 window.location.href="/";
@@ -107,6 +140,20 @@ function Register() {
                             </div>
                         ) : null}
                         <form action="" onSubmit={submitHandler}>
+                        <Input
+                                label_id={"firstname"}
+                                label={"Firstname"}
+                                type={"text"}
+                                value={firstname}
+                                onChange={(e) => setFirstname(e.target.value)}
+                            />
+                            <Input
+                                label_id={"lastname"}
+                                label={"Lastname"}
+                                type={"text"}
+                                value={lastname}
+                                onChange={(e) => setLastname(e.target.value)}
+                            />
                             <Input
                                 label_id={"name"}
                                 label={"Username"}
@@ -114,6 +161,16 @@ function Register() {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
+                            <div className="form-group mb-3">
+                                <label htmlFor="purok">Purok</label>
+                                <select value={purokInput} onChange={(e)=> setPurokInput(e.target.value)} className='form-control' name="" id="purok">
+                                    <option value="" disabled selected>Select Purok</option>
+                                    {
+                                        purok.length > 0 && purok.map((item) => 
+                                        <option value={item.purok}>{item.purok}</option>)
+                                    }
+                                </select>
+                            </div>
                             {/* <Input
                                 label_id={"profile_picture"}
                                 label={"Profile Picture"}
@@ -143,6 +200,7 @@ function Register() {
                                 value={password_confirmation}
                                 onChange={(e) => setPasswordConfirmation(e.target.value)}
                             />
+                            
                             <div className="d-grid gap-2">
                                 <button
                                     type="submit"

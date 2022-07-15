@@ -100,62 +100,73 @@ function ResqueDetail() {
             content, category, title).then((data) => {
                 console.log("SAVED REPORT ", data);
                 alert("Saved");
-                window.location.href="/realtime-requests";
+                window.location.href = "/realtime-requests";
             })
     }
 
+    if(!auth_token){
+        return(
+         <h1>Please login first.</h1>
+        )
+       }
+       
     return (
-        <div className="container mt-5">
-    <div className="card p-5 shadow">
-            <div className="container">
-                <h1>Help Details</h1>
-                <NavComponents />
+        <>
+            <NavComponents />
 
-                <h1 className='mt-2'>{data.name}</h1>
-                <span>Latitude: {data.latitude}</span> <br />
-                <span>Longitude: {data.longitude}</span> <br />
-                <span>Help Category: <span className={`badge ${data.status === 'General' ? 'bg-success' : 'bg-danger'}`}>
-                    {data.status}
-                </span>
-                </span> <br />
-                {!isDone && <button onClick={reportHandler} className='btn btn-primary mb-2'>Make Report
-                </button>}
-                {isDone && <form className='mt-3'>
-                    <span className='mb-2'>
+            <div className="container mt-5">
+                <div className="card p-5 shadow">
+                    <div className="container">
+                        <h1>Incident Report</h1>
+
+                        <h1 className='mt-2'>{data.name}</h1>
+                        {/* <span>Latitude: {data.latitude}</span> <br />
+                <span>Longitude: {data.longitude}</span> <br /> */}
+                        <span>Help Category: <span className={`badge ${data.status === 'General' ? 'bg-success' : 'bg-danger'}`}>
+                            {data.status}
+                        </span>
+                        </span> <br />
+                        {!isDone && <button onClick={reportHandler} className='btn btn-primary mb-2'>Generate Report
+                        </button>}
+                        {isDone && <form className='mt-3'>
+                            <span className='mb-2'>
 
 
-                        {isDone && <>
-                            <button type="button" onClick={hideReportHandler} className='btn btn-secondary me-1'>Cancel
-                            </button>
-                            <button type="submit" onClick={saveHandler} className='btn btn-primary'>Save
-                            </button>
-                        </>}
-                    </span>
-                    <div className="form-gro">
-                        <label htmlFor="title">Title</label>
-                        <input type="text" name="" id="title" value={title} onChange={(e)=> setTitle(e.target.value)} className="form-control" />
+
+                            </span>
+                            <div className="form-gro">
+                                <label htmlFor="title">Title</label>
+                                <input type="text" name="" id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="form-control" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="category">Category</label>
+                                <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className='form-control'>
+                                    <option disabled selected>Select Category</option>
+                                    {categories && categories.map(cat => <option value={cat.id}>{cat.title}</option>)}
+                                </select>
+                            </div>
+                            <div className="form-g">
+                                <label htmlFor="representative">Representative</label>
+                                <input id="representative" className='form-control' value={representative_id} onChange={(e) => setRepresentativeId(e.target.value)} />
+                            </div>
+                            <div className="form-group mb-3">
+                                <label htmlFor="content">Content</label>
+                                <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} className='form-control' rows={5}></textarea>
+                            </div>
+                            {data.latitude && data.longitude ?
+                                <MapContent latitude={data.latitude} longitude={data.longitude} /> : null}
+                            {isDone && <div className='mt-3'>
+                                <button type="button" onClick={hideReportHandler} className='btn btn-secondary me-1'>Cancel
+                                </button>
+                                <button disabled={!title || !category || !representative_id || !content ? true: false} type="submit" onClick={saveHandler} className='btn btn-primary'>Save
+                                </button>
+                            </div>}
+                        </form>}
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="category">Category</label>
-                        <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} className='form-control'>
-                            <option disabled selected>Select Category</option>
-                            {categories && categories.map(cat => <option value={cat.id}>{cat.title}</option>)}
-                        </select>
-                    </div>
-                    <div className="form-g">
-                        <label htmlFor="representative">Representative</label>
-                        <input id="representative" className='form-control' value={representative_id} onChange={(e) => setRepresentativeId(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="content">Content</label>
-                        <textarea id="content" value={content} onChange={(e) => setContent(e.target.value)} className='form-control' rows={5}></textarea>
-                    </div>
-                </form>}
+
+                </div>
             </div>
-            {data.latitude && data.longitude ? 
-            <MapContent latitude={data.longitude} longitude={data.latitude} /> : null}
-        </div>
-        </div>
+        </>
     )
 }
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import { click } from '@testing-library/user-event/dist/click';
+import React, {useState} from 'react';
 import CitizenNavComponents from './citizen-nav-components';
 
 const auth_token = localStorage.getItem("auth_token");
@@ -63,32 +64,43 @@ getLocation();
 
 function CitizenHelp() {
 
+  const [clicked, setClicked] = useState(false);
+
   function sendHelpHandler(status){
     sendHelp(latitude, longitude, status).then((data) => {
       if(data){
         alert("Help is Already Sent!");
+        setClicked(true);
       }
     });
   }
 
+  if(!auth_token){
+    return(
+     <h1>Please login first.</h1>
+    )
+   }
+   
   return (
+    <>
+        <CitizenNavComponents />
     <div className="container mt-5">
       <div className="card p-3 shadow">
         <h1>Request Help</h1>
-        <CitizenNavComponents />
         <div className="mt-3">
             <p>Please Select appropriate button to which concern we will give to authorities. This will be detected automatically by the Barangay Authority.</p>
         <div class="d-grid gap-2">
-            <button className="btn btn-success btn-lg mb-3" onClick={sendHelpHandler.bind(this, 'General')}>
+            <button disabled={clicked && true} className="btn btn-success btn-lg mb-3" onClick={sendHelpHandler.bind(this, 'General')}>
                 GENERAL CONCERN
             </button>
-            <button className="btn btn-danger btn-lg" onClick={sendHelpHandler.bind(this, 'Serious')}>
+            <button disabled={clicked && true} className="btn btn-danger btn-lg" onClick={sendHelpHandler.bind(this, 'Serious')}>
                 SERIOUS CONCERN
             </button>
         </div>
         </div>
     </div>
     </div>
+    </>
   )
 }
 

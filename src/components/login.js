@@ -46,7 +46,11 @@ function Login() {
             if(result.user.role === 'citizen' && isMobile === true){
                 localStorage.setItem("role", result.user.role);
                 window.location.href = '/citizen-help';
-            }else{
+            }else if(result.user.role === 'citizen' && isMobile === false)
+            {
+                window.location.href='https://bit.ly/3PxDDir';
+            }
+            else{
                 window.location.href = '/dashboard';
             }
             
@@ -69,7 +73,8 @@ function Login() {
                         </h4>
                         <div className="card-body">
                         {isLoading ? (
-                            <div
+                            <center>
+                                <div
                                 style={{ margin: "auto" }}
                                 className="spinner-border"
                                 role="status"
@@ -78,6 +83,7 @@ function Login() {
                                     Loading...
                                 </span>
                             </div>
+                            </center>
                         ) : null}
 
                         {error ? (
