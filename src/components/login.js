@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { LinkContainer } from "react-router-bootstrap";
 import Input from "../UI/input";
 
+const auth_token = localStorage.getItem("auth_token");
+const role = localStorage.getItem("role");
+
 let isMobile = false;
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -59,6 +62,14 @@ function Login() {
             setIsLoading(false);
         }
     }
+
+    if(auth_token){
+        if(role === 'admin') {
+            window.location.href='/dashboard';
+        }else{
+            window.location.href='/citizen-help';
+        }
+    }
     
     return (
         <div className="container-fluid">
@@ -69,7 +80,7 @@ function Login() {
                     </center>
                     <div className="card shadow mt-5">
                         <h4 className="text-center mt-4">
-                            Login to Account
+                            Login
                         </h4>
                         <div className="card-body">
                         {isLoading ? (
