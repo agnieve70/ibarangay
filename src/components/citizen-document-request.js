@@ -117,7 +117,7 @@ function CitizenDocumentRequest() {
                         {categories.length > 0 && categories.map((cat) => <option value={cat.id}>{cat.category}</option>)}
                     </select>
                 </div>
-                <button disabled={!title || !category ? true : false} type='submit' className="btn btn-primary mt-2">
+                <button disabled={!title || !category ? true : false} type='submit' className="btn btn-success mt-2">
                     Save
                 </button>
             </form>

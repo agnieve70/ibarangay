@@ -142,7 +142,7 @@ function AdminAnnouncement() {
                   <label htmlFor="content">Content</label>
                   <textarea value={content} onChange={(e) => setContent(e.target.value)} name="" id="content" cols="30" rows="5" className="form-control"></textarea>
               </div>
-              <button type="submit" disabled={!title || !content && true} className="btn btn-primary mt-2">Save Announcement</button>
+              <button type="submit" disabled={!title || !content && true} className="btn btn-success mt-2">Save Announcement</button>
           </form>
           <table className="table table-stripe">
               <thead>

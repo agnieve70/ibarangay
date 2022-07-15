@@ -134,7 +134,7 @@ function Purok() {
                             <label htmlFor="purok">Purok Name</label>
                             <input value={purokInput} onChange={(e)=> setPurokInput(e.target.value)} type="text" name="" id="purok" className="form-control" />
                         </div>
-                        <button disabled={!purokInput? true : false} type={"submit"} className="btn btn-primary">Save</button>
+                        <button disabled={!purokInput? true : false} type={"submit"} className="btn btn-success">Save</button>
                     </form>
                 </div>
                 <div className="col-md-8">

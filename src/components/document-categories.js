@@ -139,7 +139,7 @@ function DocumentCategories() {
                 <label htmlFor="category">Category</label>
                 <input value={category} onChange={(e) => setCategory(e.target.value)} type="text" className='form-control' id="category" />
               </div>
-              <button disabled={!category ? true: false} type="submit" className="btn btn-primary me-2">Save Category</button>
+              <button disabled={!category ? true: false} type="submit" className="btn btn-success me-2">Save Category</button>
               <button onClick={clearHandler} type="button" className="btn btn-secondary">Clear</button>
             </form>
           </div>

@@ -181,7 +181,7 @@ const [dataLength, setDataLength] = useState(0);
                 <label htmlFor="content">Description</label>
                 <textarea value={content} onChange={(e) => setContent(e.target.value)} className='form-control' name="" id="content" cols="30" rows="5"></textarea>
               </div>
-              <button disabled={!title || !content ? true : false} type="submit" className="btn btn-primary me-2 mt-2">Save Category</button>
+              <button disabled={!title || !content ? true : false} type="submit" className="btn btn-success me-2 mt-2">Save Category</button>
               <button type="button" onClick={clearHandler} className="btn btn-secondary mt-2">Clear</button>
             </form>
           </div>
